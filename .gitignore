@@ -51,6 +51,9 @@ cmake-build-*/
 # File-based project format
 *.iws
 
+# Model file
+*.model
+
 # IntelliJ
 out/
 
