@@ -20,8 +20,20 @@ net.eval().cuda()
 
 # image and init box
 image_files = sorted(glob.glob('./bag/*.jpg'))
-init_rbox = [334.02,128.36,438.19,188.78,396.39,260.83,292.23,200.41]
-[cx, cy, w, h] = get_axis_aligned_bbox(init_rbox)
+#// BURAK TEKE
+#init_rbox = [334.02,128.36,438.19,188.78,396.39,260.83,292.23,200.41]
+#[cx, cy, w, h] = get_axis_aligned_bbox(init_rbox)
+
+img_init = cv2.imread(image_files[0])
+# Select ROI
+cv2.namedWindow("DaSiamRPN", cv2.WND_PROP_AUTOSIZE)
+cv2.setWindowProperty("DaSiamRPN", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_NORMAL)
+
+try:
+    init_rect = cv2.selectROI('DaSiamRPN', img_init, False, False)
+    cx, cy, w, h = init_rect
+except:
+    exit()
 
 # tracker init
 target_pos, target_sz = np.array([cx, cy]), np.array([w, h])
